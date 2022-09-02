@@ -118,57 +118,6 @@ public class Vinnerlaget extends Robot
 	 * onHitByBullet: What to do when you're hit by a bullet
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
-		
-		Random randgen = new Random();
-
-        int int_dir = randgen.nextInt(2);
-
-        int int_amount = randgen.nextInt(100)+ 20;
-
-        int int_angle = randgen.nextInt(2);
-
-
-
-        switch (int_dir) {
-
-            case 0:
-
-                ahead(int_amount);
-
-                break;
-
-            case 1:
-
-                back(int_amount);
-
-                break;
-
-            case 2:
-
-                break;
-
-        }
-
-        switch(int_angle) {
-
-            case 0:
-
-                turnLeft(int_amount);
-
-                break;
-
-            case 1:
-
-                turnRight(int_amount);
-
-                break;
-
-            case 2:
-
-                break;
-
-        }
-
 	}
 	
 	/**
@@ -176,7 +125,7 @@ public class Vinnerlaget extends Robot
 	 */
 	public void onHitWall(HitWallEvent e) {
 		// Replace the next line with any behavior you would like
-		back(50);
+		//back(50);
 	}	
 
 	public void onDeath(DeathEvent e) {
