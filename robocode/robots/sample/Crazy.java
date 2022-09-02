@@ -88,7 +88,17 @@ public class Crazy extends AdvancedRobot {
 	 * onScannedRobot:  Fire!
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		fire(1);
+    double distance = e.getDistance(); //get the distance of the scanned robot
+    if(distance > 800) //this conditions adjust the fire force according the distance of the scanned robot.
+        fire(3.0);
+    else if(distance > 600 && distance <= 800)
+        fire(2.5);
+    else if(distance > 400 && distance <= 600)
+        fire(2.0);
+    else if(distance > 200 && distance <= 400)
+        fire(1.5);
+    else if(distance < 200)
+        fire(1);
 	}
 
 	/**
