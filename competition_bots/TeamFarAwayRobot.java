@@ -9,7 +9,7 @@ import java.util.Vector;
 /**
  * $CLASSNAME - a robot by (your name here)
  */
-public class MyBot extends Robot
+public class TeamFarAwayRobot extends Robot
 {
 	/**
 	 * run: $CLASSNAME's default behavior
