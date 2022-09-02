@@ -1,0 +1,57 @@
+name: 'Check file changes'
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  # Needed for the 'trilom/file-changes-action' action
+  pull-requests: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: file_changes
+        uses: trilom/file-changes-action@v1.2.3
+      - name: test
+        run: |
+          cat $HOME/files.json
+          cat $HOME/files_modified.json
+          cat $HOME/files_added.json
+          cat $HOME/files_removed.json
+          echo '${{ steps.file_changes.outputs.files}}'
+          echo '${{ steps.file_changes.outputs.files_modified}}'
+          echo '${{ steps.file_changes.outputs.files_added}}'
+          echo '${{ steps.file_changes.outputs.files_removed}}'
+      - name: check_added
+        run: |
+          import os
+          import json
+  
+          f = open(os.path.expanduser('~')+'/files_modified.json')
+          files_modified = json.load(f)
+          f.close()
+
+          f = open(os.path.expanduser('~')+'/files_added.json')
+          files_added = json.load(f)
+          f.close()
+
+          f = open(os.path.expanduser('~')+'/files_removed.json')
+          files_removed = json.load(f)
+          f.close()
+
+          print('files_modified: ' + str(files_modified))
+          print('files_added: ' + str(files_added))
+          print('files_removed: ' + str(files_removed))
+
+          assert len(files_modified) + len(files_added) <= 1
+          assert len(files_removed) == 0
+
+          for file in files_modified:
+            assert file.startswith("competition_bots/")
+          
+          for file in files_added:
+            assert file.startswith("competition_bots/")
+        shell: python

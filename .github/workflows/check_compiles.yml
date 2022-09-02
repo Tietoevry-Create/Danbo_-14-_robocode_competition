@@ -1,0 +1,19 @@
+name: 'Check Bot Compiles'
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - name: 'Compile'
+        run: javac -cp robocode/libs/robocode.jar competition_bots/*.java
